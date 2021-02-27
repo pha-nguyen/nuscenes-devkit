@@ -638,7 +638,7 @@ class Box:
         # Draw the sides
 
         cv2.putText(im, '{}'.format(track_id), (int(corners.T[0][0]), int(corners.T[0][1])), \
-            cv2.FONT_HERSHEY_SIMPLEX, 2, colors[2], 2)
+            cv2.FONT_HERSHEY_SIMPLEX, 1, colors[2][::-1], 2)
 
         for i in range(4):
             cv2.line(im,
