@@ -330,10 +330,10 @@ class DetectionBox(EvalBox):
         super().__init__(sample_token, translation, size, rotation, velocity, ego_translation, num_pts)
 
         assert detection_name is not None, 'Error: detection_name cannot be empty!'
-        assert detection_name in DETECTION_NAMES, 'Error: Unknown detection_name %s' % detection_name
+        # assert detection_name in DETECTION_NAMES, 'Error: Unknown detection_name %s' % detection_name
 
-        assert attribute_name in ATTRIBUTE_NAMES or attribute_name == '', \
-            'Error: Unknown attribute_name %s' % attribute_name
+        # assert attribute_name in ATTRIBUTE_NAMES or attribute_name == '', \
+        #     'Error: Unknown attribute_name %s' % attribute_name
 
         assert type(detection_score) == float, 'Error: detection_score must be a float!'
         assert not np.any(np.isnan(detection_score)), 'Error: detection_score may not be NaN!'
@@ -373,7 +373,7 @@ class DetectionBox(EvalBox):
     @classmethod
     def deserialize(cls, content: dict):
         """ Initialize from serialized content. """
-        return cls(sample_token=content['sample_token'],
+        temp = cls(sample_token=content['sample_token'],
                    translation=tuple(content['translation']),
                    size=tuple(content['size']),
                    rotation=tuple(content['rotation']),
@@ -384,6 +384,8 @@ class DetectionBox(EvalBox):
                    detection_name=content['detection_name'],
                    detection_score=-1.0 if 'detection_score' not in content else float(content['detection_score']),
                    attribute_name=content['attribute_name'])
+        temp.annotation_token = content['annotation_token']
+        return temp
 
 
 class DetectionMetricDataList:

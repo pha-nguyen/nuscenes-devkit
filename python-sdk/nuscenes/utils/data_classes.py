@@ -611,6 +611,7 @@ class Box:
 
     def render_cv2(self,
                    im: np.ndarray,
+                   track_id: int,
                    view: np.ndarray = np.eye(3),
                    normalize: bool = False,
                    colors: Tuple = ((0, 0, 255), (255, 0, 0), (155, 155, 155)),
@@ -635,6 +636,10 @@ class Box:
                 prev = corner
 
         # Draw the sides
+
+        cv2.putText(im, '{}'.format(track_id), (int(corners.T[0][0]), int(corners.T[0][1])), \
+            cv2.FONT_HERSHEY_SIMPLEX, 2, colors[0], 2)
+
         for i in range(4):
             cv2.line(im,
                      (int(corners.T[i][0]), int(corners.T[i][1])),
